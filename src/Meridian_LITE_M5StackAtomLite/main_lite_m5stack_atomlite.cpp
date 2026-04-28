@@ -1,6 +1,6 @@
 /**
  * @file main_lite_m5stack_atomlite.cpp
- * @brief Meridian LITE [Board: M5Stack-AtomLite]‚ÌƒƒCƒ“ƒ‹[ƒ`ƒ“
+ * @brief Meridian LITE [Board: M5Stack-AtomLite]ã®ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒãƒ³
  * @version 0.1.0
  * @date 2025-04-27
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
@@ -17,7 +17,7 @@ meridian::BoardSetting a_conductor;
 //==================================================================================================
 void setup() {
   //////////////////////////////////////////////////////////
-  // M5Stack Atom‚Ì‰Šú‰»
+  // M5Stack Atomã®åˆæœŸåŒ–
   //////////////////////////////////////////////////////////
   M5.begin(true, true, true);
   M5.dis.begin();
@@ -26,7 +26,7 @@ void setup() {
   M5.dis.fillpix(CRGB::Green);
 
   //////////////////////////////////////////////////////////
-  // setup‚ÌŠ®—¹‚µ‚½‚çALED‚ğÂF‚É•ÏX
+  // setupã®å®Œäº†ã—ãŸã‚‰ã€LEDã‚’é’è‰²ã«å¤‰æ›´
   //////////////////////////////////////////////////////////
   if (false == a_conductor.begin()) {
     while (true) {

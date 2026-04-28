@@ -9,6 +9,7 @@
  */
 // TODO: APモードの対応とSTAの対応を行う
 // TODO: STAは複数の設定から呼び出せると良いかも
+#if 0 // TODO: WIFI機能をコメントアウト
 #ifndef __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_AND_DIAGNOSTIC_WIFI_HPP__
 #define __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_AND_DIAGNOSTIC_WIFI_HPP__
 // ヘッダファイルの読み込み
@@ -56,16 +57,24 @@ protected:
       if (OUTPUT_LOG_LEVEL::LEVEL_OPERATIONAL == a_level) {
       } else if (OUTPUT_LOG_LEVEL::LEVEL_DEBUG <= a_level) {
         if (0 != target_diag.port) {
-          String textLevel = this->get_text_level(a_level);
-          uint8_t data[255 + textLevel.length()] = {0};
+          const char *textLevel = this->get_text_level(a_level);
+          uint8_t data[512] = {0}; // RaspberryPi Pico: 固定長配列に変更
+          int text_len = 0;
+          // テキストレベルの長さを計算
+          for (int i = 0; i < 50; i++) {
+            if (textLevel[i] == 0x00) {
+              text_len = i;
+              break;
+            }
+          }
           data[index++] = '[';
-          for (int i = 0; i < textLevel.length(); i++) {
+          for (int i = 0; i < text_len; i++) {
             data[index++] = textLevel[i];
           }
           data[index++] = ']';
           data[index++] = ' ';
           for (int i = 0; i < 250; i++) {
-            if (0x00 != a_message[i]) {
+            if (0x00 != a_message[i] && index < 510) {
               data[index++] = a_message[i];
             } else {
               data[index] = 0x00; // 文字列の終端
@@ -81,13 +90,17 @@ protected:
       }
     }
     if (nullptr != this->_serial) {
+      char data[255] = {0};
       if (OUTPUT_LOG_LEVEL::LEVEL_OPERATIONAL == a_level) {
-        return this->_serial->printf("%s", a_message);
+        sprintf(data, "%s", a_message);
+        return this->_serial->write(data, strlen(data));
       } else {
 #if DEBUG_MERIDIAN_CORE
-        return this->_serial->printf("[%9.3f][%s] %s%s", millis() / 1000.0f, this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
+        sprintf(data, "[%9.3f][%s] %s%s", millis() / 1000.0f, this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
+        return this->_serial->write(data, strlen(data));
 #else
-        return this->_serial->printf("[%s] %s%s", this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
+        sprintf(data, "[%s] %s%s", this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
+        return this->_serial->write(data, strlen(data));
 #endif
       }
     }
@@ -156,7 +169,7 @@ public:
   bool connect(const char *ssid, const char *password, int open_port = 40009) {
     bool result = true;
     this->_open_port = open_port;
-    WiFi.disconnect(true); // 新しい接続のためにWiFi接続をリセット
+    WiFi.disconnect(); // 新しい接続のためにWiFi接続をリセット
     delay(100);
     if (false == this->_host_name.equals("")) {
       WiFi.setHostname(this->_host_name.c_str()); // ホスト名を設定
@@ -247,3 +260,4 @@ private:
 } // namespace meridian
 
 #endif // __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_AND_DIAGNOSTIC_WIFI_HPP__
+#endif

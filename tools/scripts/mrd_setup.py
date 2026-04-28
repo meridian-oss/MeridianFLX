@@ -154,6 +154,7 @@ if __name__ == '__main__':
     project_list = [
         "Meridian_LITE_M5StackAtomLite",
         "Meridian_LITE_M5StackAtomS3",
+        "Meridian_LITE_RaspberryPiPico",
         "Meridian_LITE_ESP32",
         "Meridian_TWIN_ESP32",
         "Meridian_TWIN_Teensy"

@@ -9,6 +9,7 @@
  */
 // TODO: APモードの対応とSTAの対応を行う
 // TODO: STAは複数の設定から呼び出せると良いかも
+#if 0 // TODO: WIFI機能をコメントアウト
 #ifndef __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_WIFI_HPP__
 #define __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_WIFI_HPP__
 // ヘッダファイルの読み込み
@@ -106,7 +107,7 @@ public:
   bool connect(const char *ssid, const char *password, int open_port = 40009) {
     bool result = true;
     this->_open_port = open_port;
-    WiFi.disconnect(true); // 新しい接続のためにWiFi接続をリセット
+    WiFi.disconnect(); // 新しい接続のためにWiFi接続をリセット
     delay(100);
     if (false == this->_host_name.equals("")) {
       WiFi.setHostname(this->_host_name.c_str()); // ホスト名を設定
@@ -188,3 +189,4 @@ private:
 } // namespace meridian
 
 #endif // __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_WIFI_HPP__
+#endif

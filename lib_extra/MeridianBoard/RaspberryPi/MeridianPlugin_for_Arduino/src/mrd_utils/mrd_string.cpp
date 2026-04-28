@@ -35,31 +35,13 @@ String mrd_time_to_string(int unixTime) {
 /// @brief フォーマットされた文字列を返す
 String mrd_format(const char *format, ...) {
   char loc_buf[MRD_UTIL_BUFFER_SIZE];
-  char *message = loc_buf;
-  va_list arg;
-  va_list copy;
-  va_start(arg, format);
-  va_copy(copy, arg);
-  int len = vsnprintf(message, sizeof(loc_buf), format, copy);
-  va_end(copy);
-  if (len < 0) {
-    va_end(arg);
-    return "";
-  }
-  if ((unsigned long long)len >= sizeof(loc_buf)) {
-    message = (char *)malloc(len + 1);
-    if (message == NULL) {
-      va_end(arg);
-      return "";
-    }
-    len = vsnprintf(message, len + 1, format, arg);
-  }
-  va_end(arg);
-  String str(message);
-  if (message != loc_buf) {
-    free(message);
-  }
-  return str;
+
+  __builtin_va_list args;
+  __builtin_va_start(args, format);
+  vsnprintf(loc_buf, sizeof(loc_buf), format, args);
+  __builtin_va_end(args);
+
+  return String(loc_buf);
 }
 
 } // namespace meridian

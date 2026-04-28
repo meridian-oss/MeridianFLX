@@ -30,5 +30,5 @@ jobs:
 #  Build_MERIDIAN_LITE_pico:
 #    uses: ./.github/workflows/_WORKFLOW_CALL_RunningPlatformIO.yml
 #    with:
-#      board_env: Meridian_Lite_pico
+#      board_env: Meridian_LITE_pico
 #      firmware_name: Meridian_LITE_for_pico

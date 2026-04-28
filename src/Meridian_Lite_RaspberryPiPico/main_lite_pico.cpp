@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
  * @note MIT LICENSE
  */
-#if defined(Meridian_Lite_RaspberryPiPico)
+#if defined(Meridian_LITE_RaspberryPiPico)
 #include "board_lite_pico.hpp"
 meridian::BoardSetting a_conductor;
 
