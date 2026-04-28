@@ -47,14 +47,14 @@ protected:
     if (nullptr != this->_serial) {
       char data[255] = {0};
       if (OUTPUT_LOG_LEVEL::LEVEL_OPERATIONAL == a_level) {
-        sprintf(data, "%s%s", a_message, a_newline ? "\n" : "");
+        snprintf(data, sizeof(data), "%s%s", a_message, a_newline ? "\n" : "");
         return this->_serial->write(data, strlen(data));
       } else {
 #if DEBUG_MERIDIAN_CORE
-        sprintf(data, "[%9.3f][%s] %s%s", millis() / 1000.0f, this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
+        snprintf(data, sizeof(data), "[%9.3f][%s] %s%s", millis() / 1000.0f, this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
         return this->_serial->write(data, strlen(data));
 #else
-        sprintf(data, "[%s] %s%s", this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
+        snprintf(data, sizeof(data), "[%s] %s%s", this->get_text_level(a_level), a_message, a_newline ? "\n" : "");
         return this->_serial->write(data, strlen(data));
 #endif
       }

@@ -82,7 +82,7 @@ void mrd_countup(Meridim &a_meridim) {
 }
 
 void set_meridim(Meridim &a_meridim, uint8_t a_data[], int size) {
-  if (MERIDIM_BYTE_SIZE > size) {
+  if (MERIDIM_BYTE_SIZE <= size) {
     a_meridim.master_command = (uint16_t)((a_data[1] << 8) | a_data[0]);
     a_meridim.sequential = (uint16_t)((a_data[3] << 8) | a_data[2]);
     a_meridim.input_data.accelerator.x = (int16_t)((a_data[5] << 8) | a_data[4]);
@@ -103,10 +103,10 @@ void set_meridim(Meridim &a_meridim, uint8_t a_data[], int size) {
     a_meridim.input_data.control.stick_r = (int16_t)((a_data[35] << 8) | a_data[34]);
     a_meridim.input_data.control.analog_l = a_data[36];
     a_meridim.input_data.control.analog_r = a_data[37];
-    a_meridim.userdata.motion_frames = a_data[38] > 4;
+    a_meridim.userdata.motion_frames = a_data[38] >> 4;
     a_meridim.userdata.stop_frames_ms = a_data[38] & 0x0F;
     for (int i = 0; i < MERIDIM_SERVO_NUM; i++) {
-      a_meridim.userdata.servo[i].id = a_data[39 + (i * 3)] > 4;
+      a_meridim.userdata.servo[i].id = a_data[39 + (i * 3)] >> 4;
       a_meridim.userdata.servo[i].cmd = a_data[39 + (i * 3)] & 0x0F;
       a_meridim.userdata.servo[i].value = (int16_t)((a_data[41 + (i * 3)] << 8) | a_data[40 + (i * 3)]);
     }

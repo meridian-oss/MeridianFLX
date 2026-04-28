@@ -35,9 +35,9 @@ protected:
   /// @brief 仮想関数 - 受信処理の実処理
   /// @param a_meridim 受信するデータ
   virtual bool received(uint8_t *data, int *data_length) {
-    static uint8_t *buffer = new uint8_t[180]{0x00};
+    static uint8_t buffer[180] = {0x00};
     *data_length = 180;
-    data = buffer;
+    memcpy(data, buffer, 180);
     return true;
   }
   /// @brief 仮想関数 - 送信処理の実処理
@@ -72,6 +72,12 @@ public:
         uint8_t *data = new uint8_t[MERIDIM_BYTE_SIZE]{0x00};
         int data_length = 0;
         if (true == this->received(data, &data_length)) {
+          // Validate data_length
+          if (data_length < 3 || data_length > MERIDIM_BYTE_SIZE) {
+            this->warn("Invalid data length received");
+            delete[] data;
+            return result;
+          }
           // チェックサム確認
           int sum = 0;
           int checksum = 0;
