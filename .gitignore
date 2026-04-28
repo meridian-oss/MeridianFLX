@@ -1,3 +1,11 @@
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+~$*
+__pycache__
+
 # Prerequisites
 *.d
 
@@ -11,18 +19,10 @@
 *.gch
 *.pch
 
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
 # Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
-*.so.*
-
 
 # Fortran module files
 *.mod
@@ -39,31 +39,20 @@
 *.out
 *.app
 
-# Build directories
-build/
-Build/
-build-*/
+# Platform files
+.pio
 
-# CMake generated files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
-install_manifest.txt
-compile_commands.json
+# Vscode files
+.vscode/.browse.c_cpp.db*
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch
 
-# Temporary files
-*.tmp
-*.log
-*.bak
-*.swp
+# Doxygen files
+doxygen
 
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
-.cache/
+# My Project
+board_ip.txt
+meridian_network_keys.hpp
+meridian_parameter.hpp
+examples
