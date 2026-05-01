@@ -12,7 +12,7 @@
 #include "meridian_plugin_settings.hpp"
 // ライブラリ導入
 #include <Arduino.h>
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 
 namespace meridian {
 namespace board {
@@ -21,6 +21,9 @@ class MeridianBoardLiteForEsp32 : public IMrdBoard {
 public:
   class Parameter {
   public:
+    int duration_us = 10 * 1000;            // 10ms
+    uint64_t timer_section_us = 100 * 1000; // 100ms
+    float delay_rate = 0.9;                 // 待機時間の減衰率
   };
   Parameter parameter;
 

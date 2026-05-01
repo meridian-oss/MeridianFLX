@@ -13,7 +13,7 @@
 #include <mrd_utils/mrd_string.hpp>
 // ライブラリ導入
 #include <Arduino.h>
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 #include <Servo.h>
 
 namespace meridian {

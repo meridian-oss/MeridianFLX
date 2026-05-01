@@ -9,7 +9,7 @@
 #ifndef __APP_LITE_PICO_HPP__
 #define __APP_LITE_PICO_HPP__
 // ライブラリ導入
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 
 namespace meridian {
 

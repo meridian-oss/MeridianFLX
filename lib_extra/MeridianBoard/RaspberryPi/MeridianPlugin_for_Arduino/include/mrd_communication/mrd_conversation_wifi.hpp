@@ -9,14 +9,14 @@
  */
 // TODO: APモードの対応とSTAの対応を行う
 // TODO: STAは複数の設定から呼び出せると良いかも
-#if 0 // TODO: WIFI機能をコメントアウト
+#if 1 // TODO: WIFI機能をコメントアウト
 #ifndef __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_WIFI_HPP__
 #define __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_WIFI_HPP__
 // ヘッダファイルの読み込み
 #include "mrd_utils/mrd_string.hpp"
 // ライブラリ導入
 #include <Arduino.h>
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 #include <WiFi.h>
 #include <WiFiUdp.h>
 

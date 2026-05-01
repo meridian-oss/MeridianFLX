@@ -12,6 +12,7 @@
 #include "meridian_network_keys.hpp"
 #include "meridian_parameter.hpp"
 #include <board/meridian_board_lite_for_esp32.hpp>
+#include <mrd_utils/mrd_timer.hpp>
 
 #include <mrd_communication/mrd_diagnostic_uart.hpp>
 // #include <mrd_communication/mrd_conversation_wired_LAN_W5500.hpp>
@@ -23,7 +24,7 @@ namespace meridian {
 
 class BoardSetting : public board::MeridianBoardLiteForEsp32 {
 private:
-  meridian::TestApp app;
+  meridian::TestApp test_app;
   communication::MrdDiagnosticUart *diag = new communication::MrdDiagnosticUart(&Serial);
   // MrdConversationWiredLAN *com = new MrdConversationWiredLAN(5, 15, NETWORK_HOST_NAME);
   communication::MrdConversationWifi *com = new communication::MrdConversationWifi(nullptr, NETWORK_HOST_NAME);
@@ -43,7 +44,7 @@ protected:
     // ログレベル変更
     //////////////////////////////////////////////////////////
     this->com->set_log_level_unit(OUTPUT_LOG_LEVEL::LEVEL_ALL);
-    this->app.set_log_level_unit(OUTPUT_LOG_LEVEL::LEVEL_ALL);
+    this->test_app.set_log_level_unit(OUTPUT_LOG_LEVEL::LEVEL_ALL);
     this->notion->set_log_level_unit(OUTPUT_LOG_LEVEL::LEVEL_ALL);
     this->set_log_level_unit(OUTPUT_LOG_LEVEL::LEVEL_INFO);
     //////////////////////////////////////////////////////////
@@ -60,7 +61,7 @@ protected:
     //////////////////////////////////////////////////////////
     // アプリケーションの設定
     //////////////////////////////////////////////////////////
-    this->push_app(&this->app);
+    this->push_app(&this->test_app);
     return true;
   }
   /// @brief プラグインのセットアップ処理
@@ -78,15 +79,14 @@ protected:
     this->notion->set_interval_input(250 * 1000);
     this->notion->set_interval_output(500 * 1000);
     // アプリケーションの設定
-    this->app.set_interval(1 * 1000 * 1000);
+    this->test_app.set_interval(1 * 1000 * 1000);
     this->info("============ BoardSetting::setup():end called ============");
-#if 0
     bool result = true;
     try {
       if (true == result) {
         ////////////////////////////////////////////////////////////////////////////////////////////
         this->info("==========================================");
-        this->info(mrd_format("%s(%s)", MERIDIAN_VERSION, mrd_time_to_string(BUILD_TIME).c_str()).c_str());
+        this->info(mrd_format("%s(%s)", MERIDIAN_BUILD_VERSION, mrd_time_to_string(MERIDIAN_BUILD_TIME).c_str()).c_str());
         this->info(mrd_format("Conversation: %s", this->con->get_name()).c_str());
         this->info(mrd_format("Diagnostic  : %s", this->diag->get_name()).c_str());
 
@@ -122,15 +122,14 @@ protected:
         this->info("==========================================");
 
         ////////////////////////////////////////////////////////////////////////////////////////////
-        meridian::mrd_timer_setup(this->parameter.delay_time_us,
+        meridian::mrd_timer_setup(this->parameter.duration_us,
                                   this->parameter.timer_section_us,
-                                  this->parameter.timer_delay_rate);
+                                  this->parameter.delay_rate);
       }
     } catch (...) {
       this->error("Exception occurred during setup.");
       result = false;
     }
-#endif
     return true;
   }
   /// @brief 入力処理

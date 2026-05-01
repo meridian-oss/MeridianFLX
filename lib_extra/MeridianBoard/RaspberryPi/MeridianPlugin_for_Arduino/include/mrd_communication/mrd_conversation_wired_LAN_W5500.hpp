@@ -12,7 +12,7 @@
 // ライブラリ導入
 #include <Ethernet3.h>
 #include <EthernetUdp3.h>
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 #include <SPI.h>
 
 namespace meridian {

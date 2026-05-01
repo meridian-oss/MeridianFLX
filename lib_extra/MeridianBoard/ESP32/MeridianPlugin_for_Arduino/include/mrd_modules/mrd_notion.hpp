@@ -10,7 +10,7 @@
 #define __MERIDIAN_MODULE_MRD_NOTION_HPP__
 // ヘッダファイルの読み込み
 // ライブラリ導入
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 
 namespace meridian {
 namespace modules {

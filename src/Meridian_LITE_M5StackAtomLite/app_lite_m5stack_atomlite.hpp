@@ -9,7 +9,8 @@
 #ifndef __APP_LITE_M5STACK_ATOMLITE_HPP__
 #define __APP_LITE_M5STACK_ATOMLITE_HPP__
 // ライブラリ導入
-#include <MeridianFLX.hpp>
+#include <Arduino.h>
+#include <MeridianCore.hpp>
 
 namespace meridian {
 

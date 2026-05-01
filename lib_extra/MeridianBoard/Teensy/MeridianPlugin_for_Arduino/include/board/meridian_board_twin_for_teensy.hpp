@@ -11,7 +11,7 @@
 // ヘッダファイルの読み込み
 // ライブラリ導入
 #include <Arduino.h>
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 
 namespace meridian {
 namespace board {

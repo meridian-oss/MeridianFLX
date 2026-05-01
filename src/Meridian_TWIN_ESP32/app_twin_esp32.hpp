@@ -9,7 +9,7 @@
 #ifndef __APP_TWIN_ESP32_HPP__
 #define __APP_TWIN_ESP32_HPP__
 // ライブラリ導入
-#include <MeridianFLX.hpp>
+#include <MeridianCore.hpp>
 
 namespace meridian {
 
