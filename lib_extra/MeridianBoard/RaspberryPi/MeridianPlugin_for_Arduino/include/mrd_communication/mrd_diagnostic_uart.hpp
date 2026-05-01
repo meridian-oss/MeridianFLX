@@ -10,9 +10,9 @@
 #ifndef __MERIDIAN_COMMUNICATION_MRD_DIAGNOSTIC_UART_HPP__
 #define __MERIDIAN_COMMUNICATION_MRD_DIAGNOSTIC_UART_HPP__
 // ヘッダファイルの読み込み
-#include <interface/i_mrd_diagnostic.hpp>
 // ライブラリ導入
 #include <Arduino.h>
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 namespace communication {

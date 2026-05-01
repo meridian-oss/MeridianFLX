@@ -10,10 +10,10 @@
 #ifndef __MERIDIAN_MODULE_MRD_SERVO_PWM_HPP__
 #define __MERIDIAN_MODULE_MRD_SERVO_PWM_HPP__
 // ヘッダファイルの読み込み
-#include <interface/i_mrd_driver.hpp>
 #include <mrd_utils/mrd_string.hpp>
 // ライブラリ導入
 #include <Arduino.h>
+#include <MeridianFLX.hpp>
 #include <Servo.h>
 
 namespace meridian {

@@ -8,7 +8,7 @@
  */
 #ifndef __APP_LITE_M5STACK_ATOMS3_HPP__
 #define __APP_LITE_M5STACK_ATOMS3_HPP__
-#include <interface/i_mrd_app.hpp>
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 

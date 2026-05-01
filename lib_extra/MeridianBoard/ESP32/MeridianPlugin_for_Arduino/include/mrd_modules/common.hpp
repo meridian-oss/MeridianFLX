@@ -10,9 +10,9 @@
 #define __MERIDIAN_MODULE_COMMON_HPP__
 // ヘッダファイルの読み込み
 #include "mrd_modules/common.hpp"
-#include <meridim.hpp>
 // ライブラリ導入
 #include <Arduino.h>
+#include <MeridianFLX.hpp>
 
 #define IXL_MAX 15 // L系統の最大サーボ数. 標準は15.
 #define IXR_MAX 15 // R系統の最大サーボ数. 標準は15.

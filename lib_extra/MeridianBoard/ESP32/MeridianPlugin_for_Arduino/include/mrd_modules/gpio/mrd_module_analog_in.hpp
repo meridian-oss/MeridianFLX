@@ -11,7 +11,7 @@
 #define __MERIDIAN_MODULE_MRD_ANALOG_IN_HPP__
 // ライブラリ導入
 #include <Arduino.h>
-#include <interface/i_mrd_driver.hpp>
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 namespace modules {

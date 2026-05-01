@@ -14,12 +14,9 @@
 // ヘッダファイルの読み込み
 #include "mrd_modules/gpio/mrd_module_gpio_out.hpp"
 #include "mrd_utils/mrd_string.hpp"
-#include <interface/i_mrd_conversation.hpp>
-#include <interface/i_mrd_diagnostic.hpp>
-#include <meridian_core.hpp>
-
 // ライブラリ導入
 #include <Arduino.h>
+#include <MeridianFLX.hpp>
 #include <WiFi.h>
 #include <WiFiUdp.h>
 

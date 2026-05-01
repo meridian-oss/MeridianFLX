@@ -9,9 +9,9 @@
 #ifndef __MERIDIAN_BOARD_MERIDIAN_BOARD_TWIN_FOR_TEENSY_HPP__
 #define __MERIDIAN_BOARD_MERIDIAN_BOARD_TWIN_FOR_TEENSY_HPP__
 // ヘッダファイルの読み込み
-#include <interface/i_mrd_board.hpp>
 // ライブラリ導入
 #include <Arduino.h>
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 namespace board {

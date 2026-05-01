@@ -10,12 +10,11 @@
 #define __MERIDIAN_COMMUNICATION_MRD_CONVERSATION_WIRED_LAN_W5500_HPP__
 // ヘッダファイルの読み込み
 #include "mrd_modules/gpio/mrd_module_gpio_out.hpp"
-#include <interface/i_mrd_conversation.hpp>
-#include <interface/i_mrd_diagnostic.hpp>
-#include <meridian_core.hpp>
 // ライブラリ導入
+#include <Arduino.h>
 #include <Ethernet3.h>
 #include <EthernetUdp3.h>
+#include <MeridianFLX.hpp>
 #include <SPI.h>
 
 namespace meridian {

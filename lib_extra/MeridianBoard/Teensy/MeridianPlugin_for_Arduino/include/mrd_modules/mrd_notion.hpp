@@ -9,9 +9,8 @@
 #ifndef __MERIDIAN_MODULE_MRD_NOTION_HPP__
 #define __MERIDIAN_MODULE_MRD_NOTION_HPP__
 // ヘッダファイルの読み込み
-#include <interface/i_mrd_driver.hpp>
 // ライブラリ導入
-// #include ...
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 namespace modules {

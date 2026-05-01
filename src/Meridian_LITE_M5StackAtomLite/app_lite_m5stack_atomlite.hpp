@@ -8,7 +8,8 @@
  */
 #ifndef __APP_LITE_M5STACK_ATOMLITE_HPP__
 #define __APP_LITE_M5STACK_ATOMLITE_HPP__
-#include <interface/i_mrd_app.hpp>
+// ライブラリ導入
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 

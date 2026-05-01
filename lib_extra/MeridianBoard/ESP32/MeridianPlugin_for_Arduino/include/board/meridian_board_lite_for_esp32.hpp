@@ -12,7 +12,7 @@
 #include "meridian_plugin_settings.hpp"
 // ライブラリ導入
 #include <Arduino.h>
-#include <interface/i_mrd_board.hpp>
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 namespace board {

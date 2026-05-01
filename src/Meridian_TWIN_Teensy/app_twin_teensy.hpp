@@ -8,7 +8,8 @@
  */
 #ifndef __APP_TWIN_TEENSY_HPP__
 #define __APP_TWIN_TEENSY_HPP__
-#include <interface/i_mrd_app.hpp>
+// ライブラリ導入
+#include <MeridianFLX.hpp>
 
 namespace meridian {
 

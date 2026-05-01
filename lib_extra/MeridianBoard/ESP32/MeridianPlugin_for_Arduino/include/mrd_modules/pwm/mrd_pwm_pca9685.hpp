@@ -10,9 +10,9 @@
 #ifndef __MERIDIAN_MODULE_MRD_PWM_PCA9685_HPP__
 #define __MERIDIAN_MODULE_MRD_PWM_PCA9685_HPP__
 // ヘッダファイルの読み込み
-#include <interface/i_mrd_driver.hpp>
 // ライブラリ導入
 #include <Arduino.h>
+#include <MeridianFLX.hpp>
 #include <Wire.h>
 
 namespace meridian {
