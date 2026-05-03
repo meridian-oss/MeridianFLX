@@ -22,11 +22,16 @@ jobs:
       board_env: Meridian_TWIN_Teensy
       firmware_name: Meridian_TWIN_for_Teensy
       ext_name: hex
-  Build_MERIDIAN_LITE_M5STACK_ATOM:
+  Build_MERIDIAN_LITE_M5STACK_ATOM_S3:
     uses: ./.github/workflows/_WORKFLOW_CALL_RunningPlatformIO.yml
     with:
-      board_env: Meridian_LITE_M5StackAtom
-      firmware_name: Meridian_LITE_for_M5StackAtom
+      board_env: Meridian_LITE_M5StackAtomS3
+      firmware_name: Meridian_LITE_for_M5StackAtomS3
+  Build_MERIDIAN_LITE_M5STACK_ATOM_LITE:
+    uses: ./.github/workflows/_WORKFLOW_CALL_RunningPlatformIO.yml
+    with:
+      board_env: Meridian_LITE_M5StackAtomLite
+      firmware_name: Meridian_LITE_for_M5StackAtomLite
   Build_Meridian_LITE_RaspberryPiPico:
     uses: ./.github/workflows/_WORKFLOW_CALL_RunningPlatformIO.yml
     with:

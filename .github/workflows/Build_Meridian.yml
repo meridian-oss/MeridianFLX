@@ -11,7 +11,8 @@ on:
           - Meridian_LITE_ESP32
           - Meridian_TWIN_ESP32
           - Meridian_TWIN_Teensy
-          - Meridian_LITE_M5StackAtom
+          - Meridian_LITE_M5StackAtomS3
+          - Meridian_LITE_M5StackAtomLite
           - Meridian_LITE_RaspberryPiPico
       build_flags:
         description: 'Build flags'
