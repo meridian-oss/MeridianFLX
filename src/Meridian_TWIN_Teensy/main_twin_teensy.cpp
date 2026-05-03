@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
  * @note MIT LICENSE
  */
-#if defined(Meridian_TWIN_Teensy)
+#if defined(Meridian_TWIN_Teensy) && !defined(UNIT_TEST)
 #include "board_twin_teensy.hpp"
 meridian::BoardSetting a_conductor;
 

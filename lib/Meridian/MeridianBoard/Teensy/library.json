@@ -1,0 +1,19 @@
+{
+    "name": "MeridianBoard for Arduino on Teensy",
+    "version": "1.0.0",
+    "description": "フレームワークが'Arduino'、CPUが'Teensy'である場合のMeridianBoardのライブラリ",
+    "keywords": "Meridian Arduino Teensy",
+    "author": "Meridian Team",
+    "license": "MIT License",
+    "dependencies": {
+        "MeridianCore": "*"
+    },
+    "headers": "",
+    "examples": [],
+    "build": {
+        "flags": []
+    },
+    "export": {
+        "exclude": []
+    }
+}

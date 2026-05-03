@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
  * @note MIT LICENSE
  */
-#if defined(Meridian_TWIN_ESP32)
+#if defined(Meridian_TWIN_ESP32) && !defined(UNIT_TEST)
 #include "board_twin_esp32.hpp"
 meridian::BoardSetting a_conductor;
 
