@@ -21,7 +21,7 @@ String mrd_time_to_string(int unixTime) {
   // UnixTimeが指定している`MERIDIAN_BUILD_TIME`をyyyy/mm/dd hh:mm:ss形式に変換する
   time_t buildTime = (time_t)unixTime; // MERIDIAN_BUILD_TIMEはUnixTime形式で定義されていると仮定
   struct tm *timeInfo = gmtime(&buildTime);
-  char formattedTime[25];
+  char formattedTime[100];
   snprintf(formattedTime, sizeof(formattedTime), "%04d/%02d/%02d %02d:%02d:%02d",
            (timeInfo->tm_year + 1900), // yy
            timeInfo->tm_mon + 1,       // mm
