@@ -96,7 +96,7 @@ protected:
     char temp[3];
     int i;
     for (i = 0; i < 6; i++) {
-      if (mac.length() >= (i * 3 + 2)) {
+      if (mac.length() >= (size_t)(i * 3 + 2)) {
         temp[0] = mac[i * 3 + 0];
         temp[1] = mac[i * 3 + 1];
         temp[2] = 0x00;

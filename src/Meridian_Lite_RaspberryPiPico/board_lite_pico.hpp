@@ -10,7 +10,7 @@
 #define __BOARD_LITE_PICO_HPP__
 #include "app_lite_pico.hpp"
 // #include "meridian_network_keys.hpp"
-#include "meridian_parameter.hpp"
+// #include "meridian_parameter.hpp"
 #include <board/meridian_board_lite_for_pico.hpp>
 #include <mrd_communication/mrd_diagnostic_uart.hpp>
 #include <mrd_modules/mrd_notion.hpp>
