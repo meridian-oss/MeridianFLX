@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
  * @note MIT LICENSE
  */
-#if defined(Meridian_LITE_M5StackAtomLite)
+#if defined(Meridian_LITE_M5StackAtomLite) && !defined(UNIT_TEST)
 #include "board_lite_m5stack_atomlite.hpp"
 #include <M5Atom.h>
 

@@ -1,38 +1,24 @@
 /**
- * @file main_lite_pico.cpp
- * @brief Meridian LITE [Board: Raspberry Pi Pico]のメインルーチン
+ * @file main_twin_teensy.cpp
+ * @brief Meridian TWIN [Board: Teensy 4.0]のメインルーチン
  * @version 0.1.0
  * @date 2025-11-24
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
  * @note MIT LICENSE
  */
-#if defined(Meridian_LITE_RaspberryPiPico) && !defined(UNIT_TEST)
-#include "board_lite_pico.hpp"
-meridian::BoardSetting a_conductor;
+// Exclude this file from PlatformIO test builds
+#if defined(native) && !defined(UNIT_TEST)
 
-pin_size_t pin_led = LED_BUILTIN;
 //==================================================================================================
 //  SETUP
 //==================================================================================================
 void setup() {
-  // delay(3000);
-  pinMode(pin_led, OUTPUT);
-  digitalWrite(pin_led, LOW);
-  delay(500);
-  digitalWrite(pin_led, HIGH);
-  if (false == a_conductor.begin()) {
-    while (true) {
-      Serial.println("Error: Board Setup failed.");
-      delay(3000);
-    }
-  }
 }
 //==================================================================================================
 // MAIN LOOP
 //==================================================================================================
 
 void loop() {
-  a_conductor.update();
 }
 
 #endif
