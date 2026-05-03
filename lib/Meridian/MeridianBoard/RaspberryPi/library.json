@@ -1,7 +1,7 @@
 {
-    "name": "MeridianPlugin for Arduino on Raspberry Pi",
+    "name": "MeridianBoard for Arduino on Raspberry Pi",
     "version": "1.0.0",
-    "description": "フレームワークが'Arduino'、ボードが'Raspberry Pi系'である場合のMeridianPluginのライブラリ",
+    "description": "フレームワークが'Arduino'、ボードが'Raspberry Pi系'である場合のMeridianBoardのライブラリ",
     "keywords": "Meridian Arduino RaspberryPi",
     "author": "Meridian Team",
     "license": "MIT License",

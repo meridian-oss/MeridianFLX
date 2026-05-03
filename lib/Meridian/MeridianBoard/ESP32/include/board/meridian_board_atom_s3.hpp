@@ -1,15 +1,16 @@
 /**
- * @file meridian_board_twin_for_esp32.hpp
- * @brief "Meridian Board -Twin- for ESP32"のための定義をまとめたヘッダファイル
+ * @file meridian_board_atom_s3.hpp
+ * @brief "Meridian Board on M5Stack - AtomS3"のための定義をまとめたヘッダファイル
  * @version 1.0.0
  * @date 2025-04-27
  * @copyright Copyright (c) 2025 by Meridian Team. All rights reserved.
  * @note MIT LICENSE
  */
-#ifndef __MERIDIAN_BOARD_MERIDIAN_BOARD_TWIN_FOR_ESP32_HPP__
-#define __MERIDIAN_BOARD_MERIDIAN_BOARD_TWIN_FOR_ESP32_HPP__
+#ifndef __MERIDIAN_BOARD_MERIDIAN_BOARD_ATOM_S3_HPP__
+#define __MERIDIAN_BOARD_MERIDIAN_BOARD_ATOM_S3_HPP__
 // ヘッダファイルの読み込み
 #include "meridian_plugin_settings.hpp"
+#include "mrd_utils/mrd_string.hpp"
 // ライブラリ導入
 #include <Arduino.h>
 #include <MeridianCore.hpp>
@@ -17,7 +18,7 @@
 namespace meridian {
 namespace board {
 
-class MeridianBoardTwinForEsp32 : public IMrdBoard {
+class MeridianBoardOnAtomS3 : public IMrdBoard {
 public:
   class Parameter {
   public:
@@ -36,4 +37,4 @@ protected:
 } // namespace board
 } // namespace meridian
 
-#endif // __MERIDIAN_BOARD_MERIDIAN_BOARD_TWIN_FOR_ESP32_HPP__
+#endif // __MERIDIAN_BOARD_MERIDIAN_BOARD_ATOM_S3_HPP__

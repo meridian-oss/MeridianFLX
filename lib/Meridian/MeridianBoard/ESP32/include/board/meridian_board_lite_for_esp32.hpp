@@ -10,6 +10,7 @@
 #define __MERIDIAN_BOARD_MERIDIAN_BOARD_LITE_FOR_ESP32_HPP__
 // ヘッダファイルの読み込み
 #include "meridian_plugin_settings.hpp"
+#include "mrd_utils/mrd_string.hpp"
 // ライブラリ導入
 #include <Arduino.h>
 #include <MeridianCore.hpp>
