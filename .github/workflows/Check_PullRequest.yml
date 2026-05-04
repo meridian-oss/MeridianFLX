@@ -5,6 +5,9 @@ on:
     - main
     - develop*
 
+permissions:
+   contents: read
+
 jobs:
   Build_MERIDIAN_LITE_ESP32:
     uses: ./.github/workflows/_WORKFLOW_CALL_RunningPlatformIO.yml

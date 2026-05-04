@@ -4,6 +4,8 @@ on:
     tags:
       - 'v*'
 
+permissions: {}
+
 jobs:
   Build_MERIDIAN_LITE_ESP32:
     uses: ./.github/workflows/_WORKFLOW_CALL_RunningPlatformIO.yml
@@ -42,7 +44,13 @@ jobs:
     permissions:
       contents: write
     if: success()
-    needs: [Build_MERIDIAN_LITE_ESP32, Build_MERIDIAN_TWIN_ESP32, Build_MERIDIAN_TWIN_TEENSY, Build_MERIDIAN_LITE_M5STACK_ATOM]
+    needs:
+      - Build_MERIDIAN_TWIN_ESP32
+      - Build_MERIDIAN_TWIN_TEENSY
+      - Build_MERIDIAN_LITE_ESP32
+      - Build_MERIDIAN_LITE_M5STACK_ATOM_S3
+      - Build_MERIDIAN_LITE_M5STACK_ATOM_LITE
+      - Build_Meridian_LITE_RaspberryPiPico
     name: Build Releases on tags
     runs-on: ubuntu-latest
 
