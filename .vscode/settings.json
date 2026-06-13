@@ -57,5 +57,7 @@
         "wiimote",
         "XBUS"
     ],
-    "git.detectSubmodules": false
+    "git.detectSubmodules": true,
+    "plantuml.exportOutDir": "./",
+    "plantuml.exportSubFolder": false,
 }

@@ -1,0 +1,64 @@
+@startuml MeridianFLX-ControllerContainer
+!include <C4/C4_Container>
+' https://github.com/plantuml-stdlib/C4-PlantUML
+
+HIDE_STEREOTYPE()
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/laptop.puml
+
+' LAYOUT_LEFT_RIGHT()
+' LAYOUT_WITH_LEGEND()
+
+' AddElementTag("main_feature", $borderColor="#d73027")
+' AddRelTag("relation", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+AddRelTag("relation", $legendText="インターフェースの依存関係")
+AddRelTag("relation_via_io", $lineColor="orange", $lineStyle = DashedLine(), $legendText="入出力ポート経由の依存関係")
+
+System_Boundary(CNTL, "ロボットコントローラー") {
+    Boundary(SoM, "System on Module", "ハードウェア"){
+        Boundary(MCU, "マイコン", "ハードウェア"){
+            Container(FIRMWARE, "ファームウェア","ソフトウェア", $link="./MeridianFLX-FirmwareComponent.svg")
+        }
+        Container(ROM, "読み込み専用\n不揮発メモリ (ROM)")
+        Container(DEBUG, "書き込みおよび\nデバッグ向けポート", "JTAG, UART, USB, etc.")
+    }
+    Boundary(IOPORT, "入出力ポート", "ハードウェア") {
+        Container(COMM, "通信ポート", "UART, Wi-Fi, Bluetooth/BLE, Ethernet, USBなど")
+        Container(DEVPORT, "デバイスポート", "UART, I2C, SPI, USB, MIPI-CSI, MIPI-DSIなど")
+        Lay_D(COMM, DEVPORT)
+    }
+    ContainerDb(DB, "データストレージ", "JSON", "SDカードやEEPROMなどに\nデータを保存")
+}
+
+System(SWSDK, "ロボット向けプログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供")
+System(INPUT, "インタラクションデバイス", "ロボットへの命令を送信する\nロボットの状態を受信する")
+System_Ext(EMBSDK, "マイコン向け開発環境", "ファームウェアの作成\nプログラムの書き込み\nデバッグツールを提供")
+Lay_R(EMBSDK, SWSDK)
+Lay_R(SWSDK, INPUT)
+
+System_Boundary(DEV, "デバイス", "ハードウェア"){
+    Container_Ext(SERVO, "アクチュエータ", "ハードウェア", "サーボ")
+    Container_Ext(SENSOR, "センサー", "ハードウェア")
+    Container_Ext(DEVICE, "デバイス", "ハードウェア")
+    Lay_D(SERVO, SENSOR)
+    Lay_D(SENSOR, DEVICE)
+}
+
+Rel_D(SWSDK, FIRMWARE, "ロボットの動作を送信する\nデバイス状態を確認する",  "Serial, TCP/IP, UDP/IP", "<<通信ポート>>を経由\n[TODO] Meridian90パケットや\ngRPCなどで送受信?", $tags="relation_via_io")
+Rel(INPUT, FIRMWARE, "操作命令を送信する\n情報を受信する (選択可能)", "Serial, Wi-Fi, Bluetooth/BLE", "<<通信ポート>>を経由", $tags="relation_via_io")
+
+' Rel_U(FIRMWARE, COMM, "外部通信の情報を送受信する", $tags="relation_via_io")
+Rel_R(FIRMWARE, DEV, "デバイスの情報を送受信する", "デバイスに依存", "<<デバイスポート>>を経由", $tags="relation_via_io")
+Rel_D(FIRMWARE, DB, "情報を読み込む\n情報を保存する", $tags="relation")
+
+Rel_D(EMBSDK, DEBUG, "ファームウェアを書き込む\nデバッグする", "", "フラッシュライターや\nデバッガで通信", $tags="relation")
+Rel_L(DEBUG, MCU, "デバッグ情報を送受信する", $tags="relation")
+Rel(DEBUG, ROM, "ファームウェアを書き込む\nファームウェアを削除する", $tags="relation")
+Rel(FIRMWARE, ROM, "ファームウェアを読み込む (ブート時)", $tags="relation")
+
+SHOW_FLOATING_LEGEND()
+
+@enduml

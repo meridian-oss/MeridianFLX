@@ -1,0 +1,74 @@
+@startuml MeridianFLX-FirmwareComponent
+!include <C4/C4_Component>
+' https://github.com/plantuml-stdlib/C4-PlantUML
+
+HIDE_STEREOTYPE()
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/laptop.puml
+
+' LAYOUT_LEFT_RIGHT()
+' LAYOUT_WITH_LEGEND()
+
+' AddElementTag("main_feature", $borderColor="#d73027")
+' AddRelTag("relation", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+AddRelTag("relation", $legendText="インターフェースの依存関係")
+AddRelTag("relation_via_io", $lineColor="orange", $lineStyle = DashedLine(), $legendText="入出力ポート経由の依存関係")
+AddRelTag("relation_via_dev", $lineColor="blue", $lineStyle = DashedLine(), $legendText="デバイスドライバ経由の依存関係")
+
+System(SWSDK, "ロボット向けプログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供")
+System(INPUT, "入力デバイス", "ロボットへの命令を送信\nロボットの状態を受信")
+
+Container_Boundary(FIRMWARE, "ファームウェア"){
+    Boundary(APP, "ロボットの動作プログラム"){
+        Component(ROBOT_OP, "ロボットの操作命令の処理", "非同期ノード", "操作命令を処理して動作の入力に使用\nコントローラーからの入力を期待")
+        Component(ROBOT_IF, "ロボットの実行命令の処理", "非同期ノード", "動的な処理のためのI/Fを提供\nスクリプトやRPCなどの入力を期待")
+        Component(ROBOT_SW, "ロボットの動作", "非同期ノード", "ロボットの操作命令から対応するモーションや\n動作をするようデバイスへの命令を処理\n自律制御の場合はアルゴリズムを処理\n<<デバイス>>のフィードバック情報を反映")
+        Component(ROBOT_DEV, "ロボットのデバイス処理","リアルタイム/ポーリングノード", "<<デバイスポート>>と通信して\n<<ロボットの動作>>に必要な情報を処理")
+        ComponentQueue(DEVQ, "デバイスデータキュー")
+        ' Lay_D(ROBOT_OP, ROBOT_SW)
+        ' Lay_L(ROBOT_SW, ROBOT_DEV)
+    }
+    ' Component(LOGGER, "動作ログの保存", "非同期ノード")
+    Boundary(MIDDLE, "ミドルウェア"){
+        Component_Ext(BP, "Bluetoothプロトコルスタック", "非同期ノード", "BluetoothやBLEの通信を処理")
+        Component_Ext(NET, "ネットワークスタック", "非同期ノード", "TCP/IPやUDP/IPによる通信を処理")
+        Component_Ext(FS, "ファイルシステム", "非同期ノード", "FatFSやSingleFSで\nファイルアクセス")
+    }
+    Component_Ext(DRV, "デバイスドライバ", "リアルタイムノード", "ArduinoのIOクラスや\nArmマイコンのHALなど\n統一的なデバイスアクセスの\nインターフェースを提供")
+    Lay_R(ROBOT_DEV, FS)
+}
+
+Container(COMM, "通信ポート", "UART, Wi-Fi, Bluetooth/BLE, Ethernet, USBなど")
+ContainerDb(DB, "データストレージ", "ファイル", "SDカードやEEPROMなどに\nデータを保存")
+
+Container(DEVPORT, "デバイスポート", "UART, I2C, SPI, USB, MIPI-CSI, MIPI-DSIなど")
+System_Ext(DEV, "デバイス")
+
+Rel(SWSDK, ROBOT_IF, "ロボットの動作を送信する\nデバイス状態を確認する", "Wi-Fi, Ethernet, UART, USB-CDC, etc.", $tags="relation_via_io")
+Rel(INPUT, ROBOT_OP, "ロボットへの命令を送信する\nロボットの状態を受信する", "Bluetooth, BLE", $tags="relation_via_io")
+' Rel(ROBOT_OP, BP, "<<通信ポート>>からの\n情報を送受信する", "Bluetooth, BLE", $tags="relation")
+' Rel(ROBOT_OP, NET, "<<通信ポート>>からの\n情報を送受信する", "Wi-fi, Ethernet", $tags="relation")
+' Rel(ROBOT_OP, DRV, "<<通信ポート>>からの\n情報を送受信する", "UART, USB-CDC", $tags="relation")
+Rel(ROBOT_IF, ROBOT_SW, "動的な処理命令を入力する", $tags="relation")
+Rel(ROBOT_OP, ROBOT_SW, "操作命令を入力する", $tags="relation")
+Rel_D(ROBOT_SW, DEVQ, "<<デバイス>>への命令を格納\n<<デバイス>>の状態を取得\n非同期でアクセス", "", $tags="relation")
+Rel(ROBOT_SW, FS, "コンフィグ情報や操作命令と\n入力の対応情報を取得する", "JSON, YAML, モーションファイル", $tags="relation")
+Rel_R(ROBOT_DEV, DEVQ, "<<デバイス>>への命令を取得\n<<デバイス>>の状態を格納", "", $tags="relation")
+Rel(ROBOT_DEV, DRV, "<<デバイスポート>>\nにアクセスする", "デバイスに依存", $tags="relation")
+Rel(ROBOT_DEV, FS, "コンフィグ情報から\nデバイスポートの構成や\nデバイス固有の設定を参照する", "JSON, YAML", $tags="relation")
+' Rel(LOGGER, FS, "", $tags="relation")
+Rel(FS, DB, "ファイルを読み書きする", "SPI, QSPI, SDIO", "<<デバイスドライバ>>を経由", $tags="relation_via_dev")
+Rel(BP, COMM, "無線モジュールで通信する", "通信モジュールに依存", "<<デバイスドライバ>>と\n<<通信ポート>>を経由", $tags="relation_via_dev")
+Rel(NET, COMM, "ネットワーク通信する", "Wi-Fi, Ethernet", "<<デバイスドライバ>>と\n<<通信ポート>>を経由", $tags="relation_via_dev")
+' Rel(DRV, COMM, "外部通信の情報を送受信する", $tags="relation")
+' Rel(DRV, DB, "情報を読み込む\n情報を保存する", "SPI, QSPI", $tags="relation")
+Rel(DRV, DEVPORT, "デバイスと情報を送受信する", $tags="relation")
+Rel(DEVPORT, DEV, "デバイスと情報を送受信する", $tags="relation")
+
+SHOW_FLOATING_LEGEND()
+' Lay_R(INPUT, LEGEND())
+
+@enduml

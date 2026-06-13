@@ -1,0 +1,63 @@
+@startuml MeridianFLX-DevelopmentContainer
+!include <C4/C4_Container>
+' https://github.com/plantuml-stdlib/C4-PlantUML
+
+HIDE_STEREOTYPE()
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/laptop.puml
+
+' LAYOUT_LEFT_RIGHT()
+' LAYOUT_WITH_LEGEND()
+
+AddElementTag("main_feature", $borderColor="#d73027")
+AddRelTag("relation", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+
+Person(ROBOTDEV, "ロボット開発者")
+Person(FIRMDEV, "ファームウェア開発者")
+Lay_R(ROBOTDEV, FIRMDEV)
+
+Boundary(PC, "ロボット向けプログラム開発環境") {
+    Container(ME, "モーションエディター", "Python/Qt, Javascript", "Main component of this software")
+    ContainerDb(SCHEMA, "スキーマ", "MeridianFLX", "Schema for motion data")
+    ContainerDb(MEDATA, "モーションデータ", "T.B.D.")
+}
+
+System_Ext(IDE, "マイコン向け開発環境", "Programming tools")
+
+Boundary(ROBOT, "ロボットコントローラー") {
+    Container_Ext(COMM, "通信ポート", "UART, WiFi, TCP/IP, etc.")
+    System_Ext(ROM, "ROM")
+    ContainerDb_Ext(SD, "ストレージ", "SD Card")
+    System_Ext(DEVPORT, "デバイスポート")
+    System_Ext(MCU, "マイコン")
+}
+
+System_Ext(SERVO, "アクチュエータ")
+System_Ext(SENSOR, "センサー")
+
+Rel(ROBOTDEV, ME, "モーションの編集")
+Rel(FIRMDEV, SCHEMA, "通信プロトコル\nデータフォーマットの定義")
+Rel_L(SCHEMA, ME, "通信データ型式の参照")
+BiRel_D(ME, MEDATA, "モーションデータの読み書き")
+BiRel(MEDATA, SD, "コンフィグ情報の読み込み", "JSON", $tags="relation")
+
+Rel(FIRMDEV, IDE, "ファームウェアの送信")
+Rel_R(SCHEMA, IDE, "通信データ型式の適用")
+
+BiRel(ME, COMM, "モーションデータの送受信", "JSON, Protobuf, Flatbuffer")
+BiRel(SD, MCU, "モーションデータの読み書き")
+Rel(IDE, ROM, "ファームウェアの書き込み")
+
+Rel(ROM, MCU, "ファームウェアの読み込み")
+Rel(COMM, MCU, "モーションデータの読み込み")
+BiRel_R(MCU, DEVPORT, "")
+
+BiRel(DEVPORT, SERVO, "")
+BiRel(DEVPORT, SENSOR, "")
+
+' Lay_Distance(IDE, ROM, "0")
+
+@enduml
