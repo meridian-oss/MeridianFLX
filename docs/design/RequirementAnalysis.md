@@ -80,7 +80,7 @@ Meridianでは、ロボットの作成時に解決の難しい点を考慮し、
 上記の要件を踏まえた実装例を以下の配置図に示します。
 なお開発進行中の項目が多いため、個別の開発項目はマインドマップ[^3]を参照してください。
 
-![DeploymentDiagram](./MerdianDepCompDiag.svg)
+![DeploymentDiagram](./images/MeridianDepCompDiag.svg)
 
 ## Breakdown
 

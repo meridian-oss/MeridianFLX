@@ -42,4 +42,4 @@ MeridianFlowを実現する抽象的なシステム構成とユーザーの関�
 
 "ファームウェア" についてはC4モデルとは別に詳細な内容も検討中である。
 
-![](./images/MeridanFLX-Communication.drawio.svg)
+![](./images/MeridianFLX-Communication.drawio.svg)
