@@ -1,0 +1,76 @@
+@startuml
+' left to right direction
+' skinparam DefaultFontSize 30
+scale max 1280 width
+skinparam note {
+    NoteFontSize 18
+    BackgroundColor Pink
+    MaximumWidth 100
+}
+
+node "ホストコンピュータ" as PC_HOST {
+    component Unity as UNITY {
+        component "Meridian for Unity" as MERID_UNITY
+    }
+    component ROS {
+        component "Meridian Console" as MERID_CON
+    }
+}
+
+interface "Wifi (UDP/IP)" as WIFI
+
+MERID_CON --( WIFI: <<Meridian90 Packet>>
+MERID_UNITY --( WIFI: <<Meridian90 Packet>>
+
+node "Meridian (TWIN)" as MERIDIAN {
+    node "ネットワークユニット\n(ESP32)" as MCU_NET
+    WIFI -- MCU_NET
+
+    interface "SPI" as SPI_INTER
+    node "メインユニット\n(Teensy)" as MCU_MAIN
+    MCU_NET --( SPI_INTER: <<Meridian90 Packet>>
+    SPI_INTER -- MCU_MAIN
+
+    component "SDカード" as SD_CARD
+    component "コントローラ受信機\n(KRR-5FH)" as RECV_CON
+    MCU_MAIN -r- SD_CARD
+    MCU_MAIN -r- RECV_CON
+}
+
+interface "UART" as UART_ICS_SERVO
+interface "UART" as UART_FUTABA_SERVO
+interface "UART" as UART_DYNA_SERVO
+interface PWM as PWM_SERVO
+interface I2C as I2C_SENSOR
+interface SPI as SPI_SENSOR
+
+MCU_MAIN --( UART_ICS_SERVO
+MCU_MAIN --( UART_FUTABA_SERVO
+MCU_MAIN --( UART_DYNA_SERVO
+MCU_MAIN --( PWM_SERVO
+MCU_MAIN --( I2C_SENSOR
+MCU_MAIN --( SPI_SENSOR
+
+node "ハードウェア" as HW {
+    node "サーボモータ" as SERVO {
+        component "KONDO" as KONDO
+        component "フタバ" as FUTABA
+        component "Dynamixel" as DYNAMIXEL
+    }
+
+    UART_ICS_SERVO -- KONDO: <<ICS Protocol>>
+    UART_FUTABA_SERVO -- FUTABA: <<Futaba Protocol>>
+    UART_DYNA_SERVO -- DYNAMIXEL: <<Dynamixel1.0/2.0>>
+    PWM_SERVO -- SERVO
+
+    node "センサ" as SENSOR {
+        component "IMUセンサ\n(加速度/ジャイロ)" as IMU {
+                component BMO055
+                component MPU6050
+        }
+    }
+
+    I2C_SENSOR -- SENSOR
+    SPI_SENSOR -- SENSOR
+}
+@enduml

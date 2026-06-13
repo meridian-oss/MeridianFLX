@@ -1,0 +1,43 @@
+@startuml MeridianFLX-SystemContext
+!include <C4/C4_Context>
+' https://github.com/plantuml-stdlib/C4-PlantUML
+
+HIDE_STEREOTYPE()
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/laptop.puml
+
+' LAYOUT_LEFT_RIGHT()
+' LAYOUT_WITH_LEGEND()
+
+AddRelTag("relation", $legendText="インターフェースの依存関係")
+
+Person(OP, "操作担当者", "ロボットの操作をする人")
+Person(ROBOTDEV, "ロボット開発者", "<<ロボットコントローラー>>上で実行される\nロボット向けのプログラムや\nモーションを開発をする人")
+Person(FIRMDEV, "ファームウェア開発者", "<<ロボットコントローラー>>の\nファームウェアを開発する人")
+
+Boundary(PC, "ホストコンピュータ") {
+System(SWSDK, "ロボット向け動作プログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供", $link="./MeridianFLX-DevelopmentContainer.svg")
+System_Ext(EMBSDK, "マイコン向け開発環境", "ファームウェアの作成\nプログラムの書き込み\nデバッグツールを提供")
+}
+
+System(INPUT, "インタラクションデバイス", "ロボットへの命令を送信\nロボットの状態を受信")
+System(CNTL, "ロボットコントローラー", "命令を変換してデバイスへ伝達", $link="./MeridianFLX-ControllerContainer.svg")
+
+System_Ext(DEV, "デバイス", "ハードウェア")
+
+Rel(ROBOTDEV, SWSDK, "ロボットの動作を作成する", $tags="relation")
+Rel(FIRMDEV, EMBSDK, "ファームウェアを開発する", $tags="relation")
+Rel(EMBSDK, CNTL, "ファームウェアを書き込む\nファームウェアをデバッグする", $tags="relation")
+Rel(SWSDK, CNTL, "ロボットの動作を送信する\nデバイス状態を確認する", $tags="relation")
+Rel(CNTL, DEV, "命令を送信する\n情報を受信する", $tags="relation")
+
+Rel(OP, INPUT, "ロボットを操作する", $tags="relation")
+Rel_L(INPUT, SWSDK, "操作命令を送信する\n情報を受信する(選択可能)", $tags="relation")
+Rel(INPUT, CNTL, "操作命令を送信する\n情報を受信する (選択可能)", $tags="relation")
+
+SHOW_LEGEND()
+
+@enduml
