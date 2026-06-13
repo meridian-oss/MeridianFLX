@@ -19,7 +19,7 @@ Person(ROBOTDEV, "ロボット開発者")
 Person(FIRMDEV, "ファームウェア開発者")
 Lay_R(ROBOTDEV, FIRMDEV)
 
-Boundary(PC, "ロボット向けプログラム開発環境") {
+Boundary(PC, "ロボット向け動作プログラム開発環境") {
     Container(ME, "モーションエディター", "Python/Qt, Javascript", "Main component of this software")
     ContainerDb(SCHEMA, "スキーマ", "MeridianFLX", "Schema for motion data")
     ContainerDb(MEDATA, "モーションデータ", "T.B.D.")

@@ -18,8 +18,8 @@ AddRelTag("relation", $legendText="インターフェースの依存関係")
 AddRelTag("relation_via_io", $lineColor="orange", $lineStyle = DashedLine(), $legendText="入出力ポート経由の依存関係")
 AddRelTag("relation_via_dev", $lineColor="blue", $lineStyle = DashedLine(), $legendText="デバイスドライバ経由の依存関係")
 
-System(SWSDK, "ロボット向けプログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供")
-System(INPUT, "入力デバイス", "ロボットへの命令を送信\nロボットの状態を受信")
+System(SWSDK, "ロボット向け動作プログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供")
+System(INPUT, "インタラクションデバイス", "ロボットへの命令を送信\nロボットの状態を受信")
 
 Container_Boundary(FIRMWARE, "ファームウェア"){
     Boundary(APP, "ロボットの動作プログラム"){

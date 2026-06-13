@@ -19,7 +19,7 @@ Person(ROBOTDEV, "ロボット開発者", "<<ロボットコントローラー>>
 Person(FIRMDEV, "ファームウェア開発者", "<<ロボットコントローラー>>の\nファームウェアを開発する人")
 
 Boundary(PC, "ホストコンピュータ") {
-System(SWSDK, "ロボット向けプログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供", $link="./MeridianFLX-DevelopmentContainer.svg")
+System(SWSDK, "ロボット向け動作プログラム開発環境", "ファームウェア上で実行される\nロボットの動作プログラムの作成環境と\n動作の命令を送信するための通信部を提供", $link="./MeridianFLX-DevelopmentContainer.svg")
 System_Ext(EMBSDK, "マイコン向け開発環境", "ファームウェアの作成\nプログラムの書き込み\nデバッグツールを提供")
 }
 
